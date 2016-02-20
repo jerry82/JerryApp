@@ -11,13 +11,19 @@ using JerryApp.Web.Services;
 namespace JerryApp.Web.Controllers {
 
     public class TitlesController : ApiController {
+
+        /*
         [HttpGet]
-        public IEnumerable<TitleModel> Get() {
-            return DataAccess.Instance.GetAllTitles();
-        }
+        public IHttpActionResult Get() {
+            String error = "You are not provide search keyword !";
+            return BadRequest(error);
+        }*/
 
         [HttpGet]
         public IEnumerable<TitleNameModel> Get(string keyword) {
+            if (String.IsNullOrEmpty(keyword)) {
+                return null;
+            }
             return DataAccess.Instance.SearchTitleByName(keyword);
         }
 

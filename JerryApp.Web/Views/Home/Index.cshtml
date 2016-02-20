@@ -6,12 +6,19 @@
     <p class="light">This page allows you to query the titles.</p>
     <hr />
 
+    <!--
     <div data-ng-show="errors" data-ng-cloak>
         <div class="alert alert-danger" role="alert">
             <p data-ng-repeat="error in errors"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}</p>
         </div>
     </div>
-
+    -->
+    <div data-ng-show="errors" data-ng-cloak>
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{errors}}</p>
+        </div>
+    </div>
+    
     <form>
         <div class="form-group">
             <label for="titleName">Title Name:</label>
@@ -23,7 +30,7 @@
     <h4 class="page-title" data-ng-cloak>
         Total Titles Found: {{titleNames.length}}
     </h4>
-    <table class="table table-striped" id="requestTable" data-ng-cloak>
+    <table class="table table-striped" id="requestTable" data-ng-show="titleNames.length > 0" data-ng-cloak>
         <thead class="head-caption">
             <tr>
                 <th class="header">TitleID</th>
@@ -42,11 +49,12 @@
         </tbody>
     </table>
 
+    <br /><br />
     <div id="detailPanel" data-ng-show="detailShow" data-ng-cloak>
         <div id="pageTitle">
-            <h3 class="page-title">
-                Details of Selected Title: {{SelectedTitle.TitleName}}
-            </h3>
+            <h4 class="page-title">
+                Details of Selected Title: <b>"{{SelectedTitle.TitleName}}"</b>
+            </h4>
             <p class="light">This page allows you to query the titles.</p>
         </div>
         <hr />
@@ -96,7 +104,8 @@
         <div class="panel panel-success">
             <div class="panel-heading">Awards</div>
             <div class="panel-body">
-                <table class="table" id="" data-ng-cloak>
+                <div data-ng-hide="SelectTitle.Awards.length > 0">No Award</div>
+                <table class="table" id="" data-ng-show="SelectTitle.Awards.length > 0" data-ng-cloak>
                     <thead class="head-caption">
                         <tr>
                             <th class="header">Award Won</th>

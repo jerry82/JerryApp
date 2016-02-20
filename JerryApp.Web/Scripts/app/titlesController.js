@@ -21,7 +21,6 @@
 
             $http.get('/api/Titles/' + model.TitleId).success(function (data) {
                 $scope.detailShow = true;
-
                 $scope.SelectedTitle = data;
             })
             .error(function (error) {
@@ -31,12 +30,20 @@
 
         $scope.searchTitle = function () {
             $scope.detailShow = false;
-            $http.get('/api/Titles/', { params: { keyword: $scope.keyword } }).success(function (data) {
-                $scope.titleNames = data;
-            })
-            .error(function (error) {
-                $scope.errors = parseErrors(error);
-            });
+            if ($scope.keyword) {
+
+                $scope.errors = undefined;
+
+                $http.get('/api/Titles/', { params: { keyword: $scope.keyword } }).success(function (data) {
+                    $scope.titleNames = data;
+                })
+                .error(function (error) {
+                    $scope.errors = parseErrors(error);
+                });
+            }
+            else {
+                $scope.errors = "Please provide 'keyword'";
+            }
         }
 
         $scope.checkmark = function (input) {
