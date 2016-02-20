@@ -38,6 +38,7 @@ namespace JerryApp.Data {
                 context.Entry(title).Collection(t => t.Awards).Load();
                 context.Entry(title).Collection(t => t.OtherNames).Load();
                 context.Entry(title).Collection(t => t.TitleGenres).Load();
+                context.Entry(title).Collection(t => t.StoryLines).Load();
 
                 foreach (var tg in title.TitleGenres) {
                     context.Entry(tg).Reference(x => x.Genre).Load();

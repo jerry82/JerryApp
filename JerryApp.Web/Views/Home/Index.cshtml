@@ -1,10 +1,9 @@
 ﻿<div data-ng-controller="titlesController" data-ng-init="" class="container">
 
     <h3 class="page-title">
-        Title Query
+        Movie Titles Query
     </h3>
-    <p class="light">This page allows you to query the titles.</p>
-    <hr />
+    <p class="light">This page allows you to query the movies' titles:</p>
 
     <!--
     <div data-ng-show="errors" data-ng-cloak>
@@ -21,41 +20,44 @@
     
     <form>
         <div class="form-group">
-            <label for="titleName">Title Name:</label>
             <input class="form-control" id="keyword" data-ng-model="keyword" placeholder="Please enter title's name">
         </div>
         <button type="submit" class="btn btn-default" data-ng-click="searchTitle()" data-ng-disabled="searching">Search</button>
     </form>
-    <hr />
-    <h4 class="page-title" data-ng-cloak>
-        Total Titles Found: {{titleNames.length}}
-    </h4>
-    <table class="table table-striped" id="requestTable" data-ng-show="titleNames.length > 0" data-ng-cloak>
-        <thead class="head-caption">
-            <tr>
-                <th class="header">TitleID</th>
-                <th class="header">Title Names</th>
-                <th class="header"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr data-ng-repeat="model in titleNames">
-                <td>{{model.TitleId}}</td>
-                <td><li data-ng-repeat="(lang, desc) in model.NamesDict">{{lang}}: {{desc}}</li></td>
-                <td>
-                    <a href target="_self" ng-click="getDetail(model)">Detail</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    
+
+    <div data-ng-show="titleNames">
+        <hr />
+        <h4 class="page-title" data-ng-cloak>
+            Total Titles Found: {{titleNames.length}}
+        </h4>
+        <table class="table table-striped" id="requestTable" data-ng-show="titleNames.length > 0" data-ng-cloak>
+            <thead class="head-caption">
+                <tr>
+                    <th class="header">TitleID</th>
+                    <th class="header">Title Names</th>
+                    <th class="header"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="model in titleNames">
+                    <td>{{model.TitleId}}</td>
+                    <td><li data-ng-repeat="(lang, desc) in model.NamesDict">{{lang}}: {{desc}}</li></td>
+                    <td>
+                        <a href target="_self" ng-click="getDetail(model)">Detail</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 
     <br /><br />
     <div id="detailPanel" data-ng-show="detailShow" data-ng-cloak>
         <div id="pageTitle">
-            <h4 class="page-title">
-                Details of Selected Title: <b>"{{SelectedTitle.TitleName}}"</b>
-            </h4>
-            <p class="light">This page allows you to query the titles.</p>
+            <h3 class="page-title">
+                <b>"{{SelectedTitle.TitleName}}"</b>
+            </h3>
         </div>
         <hr />
 
@@ -104,8 +106,8 @@
         <div class="panel panel-success">
             <div class="panel-heading">Awards</div>
             <div class="panel-body">
-                <div data-ng-hide="SelectTitle.Awards.length > 0">No Award</div>
-                <table class="table" id="" data-ng-show="SelectTitle.Awards.length > 0" data-ng-cloak>
+                <div data-ng-hide="SelectedTitle.Awards.length > 0">No Award</div>
+                <table class="table" id="" data-ng-show="SelectedTitle.Awards.length > 0" data-ng-cloak>
                     <thead class="head-caption">
                         <tr>
                             <th class="header">Award Won</th>
@@ -120,6 +122,29 @@
                             <td>{{model.Award1}}</td>
                             <td>{{model.AwardYear}}</td>
                             <td>{{model.AwardCompany}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Storylines</div>
+            <div class="panel-body">
+                <table class="table" id="" data-ng-show="SelectedTitle.StoryLines.length > 0" data-ng-cloak>
+                    <thead class="head-caption">
+                        <tr>
+                            <th class="header">Type</th>
+                            <th class="header">Language</th>
+                            <th class="header">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="model in SelectedTitle.StoryLines">
+                            <td>{{model.Type}}</td>
+                            <td>{{model.Language}}</td>
+                            <td>{{model.Description}}</td>
                         </tr>
 
                     </tbody>
