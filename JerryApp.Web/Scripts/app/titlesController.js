@@ -31,7 +31,6 @@
                 scrollToDetail();
             })
             .error(function (error) {
-                // $scope.errors = parseErrors(error);
                 $scope.errors = error.Message;
                 $scope.gettingDetail = true;
             });
@@ -54,6 +53,8 @@
             }
             else {
                 $scope.errors = "Please provide 'keyword'";
+                $scope.titleNames = null;
+
             }
         }
 
