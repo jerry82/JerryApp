@@ -1,0 +1,9 @@
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\JerryApp.Data.dll.config
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\JerryApp.Data.dll
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\JerryApp.Data.pdb
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.dll
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.xml
+C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\work\Turner\JerryApp\JerryApp.Data\obj\Debug\JerryApp.Data.dll
+C:\work\Turner\JerryApp\JerryApp.Data\obj\Debug\JerryApp.Data.pdb

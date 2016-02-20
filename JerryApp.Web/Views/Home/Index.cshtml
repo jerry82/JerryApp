@@ -1,0 +1,129 @@
+﻿<div data-ng-controller="titlesController" data-ng-init="" class="container">
+
+    <h3 class="page-title">
+        Title Query
+    </h3>
+    <p class="light">This page allows you to query the titles.</p>
+    <hr />
+
+    <div data-ng-show="errors" data-ng-cloak>
+        <div class="alert alert-danger" role="alert">
+            <p data-ng-repeat="error in errors"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}</p>
+        </div>
+    </div>
+
+    <form>
+        <div class="form-group">
+            <label for="titleName">Title Name:</label>
+            <input class="form-control" id="keyword" data-ng-model="keyword" placeholder="Please enter title's name">
+        </div>
+        <button type="submit" class="btn btn-default" data-ng-click="searchTitle()">Search</button>
+    </form>
+    <hr />
+    <h4 class="page-title" data-ng-cloak>
+        Total Titles Found: {{titleNames.length}}
+    </h4>
+    <table class="table table-striped" id="requestTable" data-ng-cloak>
+        <thead class="head-caption">
+            <tr>
+                <th class="header">TitleID</th>
+                <th class="header">Title Names</th>
+                <th class="header"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="model in titleNames">
+                <td>{{model.TitleId}}</td>
+                <td><li data-ng-repeat="(lang, desc) in model.NamesDict">{{lang}}: {{desc}}</li></td>
+                <td>
+                    <a href target="_self" ng-click="getDetail(model)">Detail</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="detailPanel" data-ng-show="detailShow" data-ng-cloak>
+        <div id="pageTitle">
+            <h3 class="page-title">
+                Details of Selected Title: {{SelectedTitle.TitleName}}
+            </h3>
+            <p class="light">This page allows you to query the titles.</p>
+        </div>
+        <hr />
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Detail</div>
+            <div class="panel-body">
+                <table class="table" id="" data-ng-cloak>
+                    <thead class="head-caption">
+                        <tr>
+                            <th class="header">Title Name</th>
+                            <th class="header">ReleaseYear</th>
+                            <th class="header">ProcessedDateTimeUTC</th>
+                            <th class="header"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{SelectedTitle.TitleName}}</td>
+                            <td>{{SelectedTitle.ReleaseYear}}</td>
+                            <td>{{SelectedTitle.ProcessedDateTimeUTC}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Other Names</div>
+            <div class="panel-body">
+                <table class="table" id="" data-ng-cloak>
+                    <thead class="head-caption">
+                        <tr>
+                            <th class="header">TitleNameLanguage</th>
+                            <th class="header">TitleName</th>
+                            <th class="header">TitleNameType</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="model in SelectedTitle.OtherNames">
+                            <td>{{model.TitleNameLanguage}}</td>
+                            <td>{{model.TitleName}}</td>
+                            <td>{{model.TitleNameType}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Awards</div>
+            <div class="panel-body">
+                <table class="table" id="" data-ng-cloak>
+                    <thead class="head-caption">
+                        <tr>
+                            <th class="header">AwardWon</th>
+                            <th class="header">Award1</th>
+                            <th class="header">AwardYear</th>
+                            <th class="header">AwardCompany</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="model in SelectedTitle.Awards">
+                            <td>{{model.AwardWon}}</td>
+                            <td>{{model.Award1}}</td>
+                            <td>{{model.AwardYear}}</td>
+                            <td>{{model.AwardCompany}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
