@@ -1,3 +1,5 @@
 JerryApp.Data/obj/
 JerryApp.Data/obj/
 JerryApp.Web/bin
+JerryApp.Data/obj
+JerryApp.Data/bin/*

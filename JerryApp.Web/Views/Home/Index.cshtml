@@ -54,23 +54,17 @@
         <div class="panel panel-success">
             <div class="panel-heading">Detail</div>
             <div class="panel-body">
-                <table class="table" id="" data-ng-cloak>
-                    <thead class="head-caption">
-                        <tr>
-                            <th class="header">Title Name</th>
-                            <th class="header">ReleaseYear</th>
-                            <th class="header">ProcessedDateTimeUTC</th>
-                            <th class="header"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{SelectedTitle.TitleName}}</td>
-                            <td>{{SelectedTitle.ReleaseYear}}</td>
-                            <td>{{SelectedTitle.ProcessedDateTimeUTC}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <ul>
+                    <li><b>Title Name: </b> {{SelectedTitle.TitleName}} </li>
+                    <li><b>Release Year: </b> {{SelectedTitle.ReleaseYear}} </li>
+                    <li><b>Processed DateTime UTC: </b> {{SelectedTitle.ProcessedDateTimeUTC}} </li>
+                    <li><b>Genre:</b>
+                        <ul>
+                            <li data-ng-repeat="tg in SelectedTitle.TitleGenres">{{tg.Genre.Name}}</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -81,9 +75,9 @@
                 <table class="table" id="" data-ng-cloak>
                     <thead class="head-caption">
                         <tr>
-                            <th class="header">TitleNameLanguage</th>
-                            <th class="header">TitleName</th>
-                            <th class="header">TitleNameType</th>
+                            <th class="header">Title Name Language</th>
+                            <th class="header">Title Name</th>
+                            <th class="header">Title Name Type</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,15 +99,15 @@
                 <table class="table" id="" data-ng-cloak>
                     <thead class="head-caption">
                         <tr>
-                            <th class="header">AwardWon</th>
-                            <th class="header">Award1</th>
-                            <th class="header">AwardYear</th>
-                            <th class="header">AwardCompany</th>
+                            <th class="header">Award Won</th>
+                            <th class="header">Award</th>
+                            <th class="header">Award Year</th>
+                            <th class="header">Award Company</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr data-ng-repeat="model in SelectedTitle.Awards">
-                            <td>{{model.AwardWon}}</td>
+                            <td>{{checkmark(model.AwardWon)}}</td>
                             <td>{{model.Award1}}</td>
                             <td>{{model.AwardYear}}</td>
                             <td>{{model.AwardCompany}}</td>

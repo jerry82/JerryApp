@@ -18,7 +18,6 @@
         }
 
         $scope.getDetail = function (model) {
-            alert(model.TitleId);
 
             $http.get('/api/Titles/' + model.TitleId).success(function (data) {
                 $scope.detailShow = true;
@@ -38,6 +37,10 @@
             .error(function (error) {
                 $scope.errors = parseErrors(error);
             });
+        }
+
+        $scope.checkmark = function (input) {
+            return input ? '\u2713' : '\u2718';
         }
 
         //helpers

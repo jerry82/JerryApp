@@ -37,13 +37,14 @@ namespace JerryApp.Data {
                         TitleId = e.TitleId,
                         NamesDict = new Dictionary<string, string>()
                     };
-                    nm.NamesDict.Add(e.TitleNameLanguage, e.TitleNameSortable);
                     dict.Add(e.TitleId, nm);
                 }
                 else {
                     nm = dict[e.TitleId];
-                    nm.NamesDict.Add(e.TitleNameLanguage, e.TitleNameSortable);
                 }
+
+                if (!nm.NamesDict.ContainsKey(e.TitleNameLanguage))
+                    nm.NamesDict.Add(e.TitleNameLanguage, e.TitleNameSortable);
             }
             return dict.Values.ToList();
         }
