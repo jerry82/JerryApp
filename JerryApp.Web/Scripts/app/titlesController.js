@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     var app = angular.module('app', []);
-    app.controller('titlesController', ['$scope', '$http', '$sce', titlesController]);
+    app.controller('titlesController', ['$scope', '$http', '$location', '$anchorScroll', titlesController]);
 
-    function titlesController($scope, $http) {
+    function titlesController($scope, $http, $location, $anchorScroll) {
 
         $scope.errors = null;
         $scope.gettingDetail = false;
@@ -28,6 +28,7 @@
                 $scope.SelectedTitle = data;
                 $scope.gettingDetail = true;
 
+                scrollToDetail();
             })
             .error(function (error) {
                 // $scope.errors = parseErrors(error);
@@ -59,6 +60,12 @@
         $scope.checkmark = function (input) {
             return input ? '\u2713' : '\u2718';
         }
+
+        function scrollToDetail() {
+            $location.hash("detailPanel");
+            console.log($location.hash());
+            $anchorScroll();
+        };
 
         //helpers
         function parseErrors(response) {
