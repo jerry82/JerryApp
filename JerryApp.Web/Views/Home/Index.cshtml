@@ -24,7 +24,7 @@
             <label for="titleName">Title Name:</label>
             <input class="form-control" id="keyword" data-ng-model="keyword" placeholder="Please enter title's name">
         </div>
-        <button type="submit" class="btn btn-default" data-ng-click="searchTitle()">Search</button>
+        <button type="submit" class="btn btn-default" data-ng-click="searchTitle()" data-ng-disabled="searching">Search</button>
     </form>
     <hr />
     <h4 class="page-title" data-ng-cloak>

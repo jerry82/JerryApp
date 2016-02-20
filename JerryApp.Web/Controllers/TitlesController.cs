@@ -12,24 +12,32 @@ namespace JerryApp.Web.Controllers {
 
     public class TitlesController : ApiController {
 
-        /*
-        [HttpGet]
-        public IHttpActionResult Get() {
-            String error = "You are not provide search keyword !";
-            return BadRequest(error);
-        }*/
+        CustomValidator validator = new CustomValidator();
 
         [HttpGet]
-        public IEnumerable<TitleNameModel> Get(string keyword) {
-            if (String.IsNullOrEmpty(keyword)) {
-                return null;
+        public IHttpActionResult Get(string keyword) {
+            string error = validator.ValidateKeyword(keyword);
+            if (!String.IsNullOrEmpty(error)) {
+                return BadRequest(error);
             }
-            return DataAccess.Instance.SearchTitleByName(keyword);
+            try {
+                IEnumerable<TitleNameModel> models = DataAccess.Instance.SearchTitleByName(keyword);
+                return Ok(models);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.ToString());
+            }
         }
 
         [HttpGet]
-        public Title Get(int id) {
-            return DataAccess.Instance.GetTitleDetails(id);
+        public IHttpActionResult Get(int id) {
+            try {
+                Title model = DataAccess.Instance.GetTitleDetails(id);
+                return Ok(model);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }

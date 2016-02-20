@@ -6,6 +6,8 @@
     function titlesController($scope, $http) {
 
         $scope.errors = null;
+        $scope.gettingDetail = false;
+        $scope.searching = false; 
 
         $scope.getAllTitles = function() {
             $http.get('/api/Titles/')
@@ -19,26 +21,34 @@
 
         $scope.getDetail = function (model) {
 
+            $scope.gettingDetail = true;
+
             $http.get('/api/Titles/' + model.TitleId).success(function (data) {
                 $scope.detailShow = true;
                 $scope.SelectedTitle = data;
+                $scope.gettingDetail = true;
+
             })
             .error(function (error) {
-                $scope.errors = parseErrors(error);
+                // $scope.errors = parseErrors(error);
+                $scope.errors = error.Message;
+                $scope.gettingDetail = true;
             });
         }
 
         $scope.searchTitle = function () {
             $scope.detailShow = false;
             if ($scope.keyword) {
-
                 $scope.errors = undefined;
-
+                $scope.searching = true;
                 $http.get('/api/Titles/', { params: { keyword: $scope.keyword } }).success(function (data) {
                     $scope.titleNames = data;
+                    $scope.searching = false;
                 })
                 .error(function (error) {
-                    $scope.errors = parseErrors(error);
+                    $scope.errors = error.Message;
+                    $scope.searching = false;
+                    //$scope.errors = parseErrors(error);
                 });
             }
             else {
