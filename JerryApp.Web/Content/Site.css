@@ -24,3 +24,7 @@ textarea {
 .x-ng-cloak {
   display: none !important;
 }
+
+.sort-header {
+    cursor: pointer;
+}

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JerryApp.Data.Models;
 using System.Globalization;
+using System.Data.Entity;
 
 namespace JerryApp.Data {
 
@@ -31,20 +32,36 @@ namespace JerryApp.Data {
          * */
         public Title GetTitleDetails(int titleId) {
             using (TitlesEntities context = new TitlesEntities()) {
-                context.Configuration.ProxyCreationEnabled = false; 
                 context.Configuration.LazyLoadingEnabled = false;
                 var title = context.Titles.FirstOrDefault(t => t.TitleId == titleId);
 
+                
                 context.Entry(title).Collection(t => t.Awards).Load();
                 context.Entry(title).Collection(t => t.OtherNames).Load();
                 context.Entry(title).Collection(t => t.TitleGenres).Load();
                 context.Entry(title).Collection(t => t.StoryLines).Load();
-
+                
                 foreach (var tg in title.TitleGenres) {
                     context.Entry(tg).Reference(x => x.Genre).Load();
                 }
-                
+
                 return title;
+            }
+        }
+
+        public List<Participant> GetTitleParticipants(int titleId) {
+            using (TitlesEntities context = new TitlesEntities()) {
+                context.Configuration.LazyLoadingEnabled = false;
+                var tp = from p in context.Participants
+                         where p.TitleParticipants.Any(c => c.TitleId == titleId)
+                         select p;
+                         /*
+                         select new ParticipantModel() 
+                         { 
+                             Name = p.Name,
+                             ParticipantType = p.ParticipantType
+                         };*/
+                return tp.ToList();
             }
         }
 

@@ -1,157 +1,43 @@
-﻿<div data-ng-controller="titlesController" data-ng-init="" class="container">
-
-    <h3 class="page-title">
-        Movie Titles Query
-    </h3>
-    <p class="light">This page allows you to query the movies' titles:</p>
-
-    <!--
-    <div data-ng-show="errors" data-ng-cloak>
-        <div class="alert alert-danger" role="alert">
-            <p data-ng-repeat="error in errors"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}</p>
-        </div>
-    </div>
-    -->
-    <div data-ng-show="errors" data-ng-cloak>
-        <div class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{errors}}</p>
-        </div>
-    </div>
-    
-    <form>
-        <div class="form-group">
-            <input class="form-control" id="keyword" data-ng-model="keyword" placeholder="Please enter title's name">
-        </div>
-        <button type="submit" class="btn btn-default" data-ng-click="searchTitle()" data-ng-disabled="searching">Search</button>
-    </form>
-    
-
-    <div data-ng-show="titleNames">
-        <hr />
-        <h4 class="page-title" data-ng-cloak>
-            Total Titles Found: {{titleNames.length}}
-        </h4>
-        <table class="table table-striped" id="requestTable" data-ng-show="titleNames.length > 0" data-ng-cloak>
-            <thead class="head-caption">
-                <tr>
-                    <th class="header">TitleID</th>
-                    <th class="header">Title Names</th>
-                    <th class="header"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="model in titleNames">
-                    <td>{{model.TitleId}}</td>
-                    <td><li data-ng-repeat="(lang, desc) in model.NamesDict">{{lang}}: {{desc}}</li></td>
-                    <td>
-                        <a href target="_self" ng-click="getDetail(model)">Detail</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-
-    <br /><br />
-    <div id="detailPanel" data-ng-show="detailShow" data-ng-cloak>
-        <div id="pageTitle">
-            <h3 class="page-title">
-                <b>"{{SelectedTitle.TitleName}}"</b>
-            </h3>
-        </div>
-        <hr />
-
-        <div class="panel panel-success">
-            <div class="panel-heading">Detail</div>
-            <div class="panel-body">
-
-                <ul>
-                    <li><b>Title Name: </b> {{SelectedTitle.TitleName}} </li>
-                    <li><b>Release Year: </b> {{SelectedTitle.ReleaseYear}} </li>
-                    <li><b>Processed DateTime UTC: </b> {{SelectedTitle.ProcessedDateTimeUTC}} </li>
-                    <li><b>Genre:</b>
-                        <ul>
-                            <li data-ng-repeat="tg in SelectedTitle.TitleGenres">{{tg.Genre.Name}}</li>
-                        </ul>
-                    </li>
+﻿<!DOCTYPE html>
+<html data-ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ng-href="#/">Movies App</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ng-href="#/TitleSearch">Search Title</a></li>
                 </ul>
             </div>
-
-        </div>
-
-        <div class="panel panel-success">
-            <div class="panel-heading">Other Names</div>
-            <div class="panel-body">
-                <table class="table" id="" data-ng-cloak>
-                    <thead class="head-caption">
-                        <tr>
-                            <th class="header">Title Name Language</th>
-                            <th class="header">Title Name</th>
-                            <th class="header">Title Name Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-ng-repeat="model in SelectedTitle.OtherNames">
-                            <td>{{model.TitleNameLanguage}}</td>
-                            <td>{{model.TitleName}}</td>
-                            <td>{{model.TitleNameType}}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <div class="panel panel-success">
-            <div class="panel-heading">Awards</div>
-            <div class="panel-body">
-                <div data-ng-hide="SelectedTitle.Awards.length > 0">No Award</div>
-                <table class="table" id="" data-ng-show="SelectedTitle.Awards.length > 0" data-ng-cloak>
-                    <thead class="head-caption">
-                        <tr>
-                            <th class="header">Award Won</th>
-                            <th class="header">Award</th>
-                            <th class="header">Award Year</th>
-                            <th class="header">Award Company</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-ng-repeat="model in SelectedTitle.Awards">
-                            <td>{{checkmark(model.AwardWon)}}</td>
-                            <td>{{model.Award1}}</td>
-                            <td>{{model.AwardYear}}</td>
-                            <td>{{model.AwardCompany}}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="panel panel-success">
-            <div class="panel-heading">Storylines</div>
-            <div class="panel-body">
-                <table class="table" id="" data-ng-show="SelectedTitle.StoryLines.length > 0" data-ng-cloak>
-                    <thead class="head-caption">
-                        <tr>
-                            <th class="header">Type</th>
-                            <th class="header">Language</th>
-                            <th class="header">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-ng-repeat="model in SelectedTitle.StoryLines">
-                            <td>{{model.Type}}</td>
-                            <td>{{model.Language}}</td>
-                            <td>{{model.Description}}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
+    <div class="container body-content">
+        
+        <div ng-view></div>
 
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Jerry's ASP.NET Application (BootstrapUI | AngularJS | WebAPI | EntityFramework 6.0)</p>
+        </footer>
+    </div>
 
-</div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/appjs")
+</body>
+</html>

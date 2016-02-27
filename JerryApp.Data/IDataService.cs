@@ -18,5 +18,7 @@ namespace JerryApp.Data {
 
         Title GetTitleDetails(int titleId);
 
+        List<Participant> GetTitleParticipants(int titleId);
+
     }
 }

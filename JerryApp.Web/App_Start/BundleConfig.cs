@@ -22,10 +22,13 @@ namespace JerryApp.Web {
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
-                        "~/Scripts/angular.min.js"));
+                        "~/Scripts/vendors/angular.js",
+                        "~/Scripts/vendors/angular-route.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/appjs").Include(
-                        "~/Scripts/app/titlesController.js"));
+                        "~/Scripts/spa/app.js",
+                        "~/Scripts/spa/services.js",
+                        "~/Scripts/spa/Titles/titleSearchCtrl.js"));
         }
     }
 }

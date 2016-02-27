@@ -42,6 +42,10 @@ namespace JerryApp.Web.Services {
         public Title GetTitleDetails(int titleId) {
             return dataService.GetTitleDetails(titleId);
         }
+
+        public List<Participant> GetParticipants(int titleId) {
+            return dataService.GetTitleParticipants(titleId);
+        }
         #endregion
     }
 }

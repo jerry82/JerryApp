@@ -1,0 +1,53 @@
+﻿
+<div data-ng-controller="titleSearchController" data-ng-init="" class="container">
+    <h3 class="page-title">
+        Movie Titles Query
+    </h3>
+    <p class="light">This page allows you to query the movies' titles:</p>
+
+    <div data-ng-show="errors" data-ng-cloak>
+        <div class="alert alert-danger" role="alert">
+            <p data-ng-repeat="error in errors"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}</p>
+        </div>
+    </div>
+
+    <form>
+        <div class="form-group">
+            <input class="form-control" id="keyword" data-ng-model="keyword" placeholder="Please enter title's name">
+        </div>
+        <button type="submit" class="btn btn-default" data-ng-click="searchTitle()" data-ng-disabled="searching">Search</button>
+    </form>
+
+
+    <div data-ng-show="titleNames">
+        <hr />
+        <h4 class="page-title" data-ng-cloak>
+            Total Titles Found: {{titleNames.length}}
+        </h4>
+        <table class="table table-striped" id="requestTable" data-ng-show="titleNames.length > 0" data-ng-cloak>
+            <thead class="head-caption">
+                <tr>
+                    <th class="header" ng-click="sortData('TitleId')"><div class="sort-header">titleid</div> </th>
+                    <th class="header">Title Names</th>
+                    <th class="header"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="model in titleNames | orderBy:sortCol:sortReverse">
+                    <td>{{model.TitleId}}</td>
+                    <td><li data-ng-repeat="(lang, desc) in model.NamesDict">{{lang}}: {{desc}}</li></td>
+                    <td>
+                        <a href="" data-ng-click="getDetail(model)">Detail</a> | 
+                        <a href="" data-ng-click="getParticipants(model)">Participants </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div data-ng-include="'Scripts/spa/Titles/TitleDetail.html'"></div>
+    <div data-ng-include="'Scripts/spa/Titles/TitleParticipants.html'"></div>
+
+
+</div>

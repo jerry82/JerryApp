@@ -10,18 +10,19 @@ using JerryApp.Web.Services;
 
 namespace JerryApp.Web.Controllers {
 
+    [RoutePrefix("api/Titles")]
     public class TitlesController : ApiController {
 
         CustomValidator validator = new CustomValidator();
 
-        [HttpGet]
-        public IHttpActionResult Get(string keyword) {
-            string error = validator.ValidateKeyword(keyword);
-            if (!String.IsNullOrEmpty(error)) {
-                return BadRequest(error);
+        [HttpPost]
+        [Route("Search")]
+        public IHttpActionResult FindTitles(SearchModel model) {
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
             }
             try {
-                IEnumerable<TitleNameModel> models = DataAccess.Instance.SearchTitleByName(keyword);
+                IEnumerable<TitleNameModel> models = DataAccess.Instance.SearchTitleByName(model.TitleKeyword);
                 return Ok(models);
             }
             catch (Exception ex) {
@@ -30,6 +31,19 @@ namespace JerryApp.Web.Controllers {
         }
 
         [HttpGet]
+        [Route("{titleId}/Participants")]
+        public IHttpActionResult FindParticipants(int titleId) {
+            try {
+                List<Participant> models = DataAccess.Instance.GetParticipants(titleId);
+                return Ok(models);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}")]
         public IHttpActionResult Get(int id) {
             try {
                 Title model = DataAccess.Instance.GetTitleDetails(id);

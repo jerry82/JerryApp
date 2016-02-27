@@ -59,6 +59,8 @@
     </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="IDataService.cs" />
+    <Compile Include="Models\ParticipantModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\TitleModel.cs" />
     <Compile Include="Models\TitleNameModel.cs" />
     <Compile Include="OtherName.cs">

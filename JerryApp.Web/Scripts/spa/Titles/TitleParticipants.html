@@ -1,0 +1,20 @@
+﻿<div class="panel panel-success" data-ng-show="participants.length > 0" data-ng-cloak>
+    <div class="panel-heading">Participants:</div>
+    <div class="panel-body">
+        <table class="table" id="" data-ng-cloak>
+            <thead class="head-caption">
+                <tr>
+                    <th class="header">Name</th>
+                    <th class="header">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="model in filteredP">
+                    <td>{{model.Name}}</td>
+                    <td>{{model.ParticipantType}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />

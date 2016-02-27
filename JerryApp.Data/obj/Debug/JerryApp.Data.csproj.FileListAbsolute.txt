@@ -5,5 +5,6 @@ C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.dll
 C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.SqlServer.dll
 C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.xml
 C:\work\Turner\JerryApp\JerryApp.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\work\Turner\JerryApp\JerryApp.Data\obj\Debug\JerryApp.Data.csprojResolveAssemblyReference.cache
 C:\work\Turner\JerryApp\JerryApp.Data\obj\Debug\JerryApp.Data.dll
 C:\work\Turner\JerryApp\JerryApp.Data\obj\Debug\JerryApp.Data.pdb
